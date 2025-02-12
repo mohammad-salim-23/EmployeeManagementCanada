@@ -30,6 +30,8 @@ const Navbar = () => {
                 </nav>
             </div>
         </div>
+        // Comment Added
+        
     );
 };
 
