@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { FaBarsStaggered, } from "react-icons/fa6";
 import { HiUserGroup } from "react-icons/hi";
 import { ImCancelCircle } from "react-icons/im";
-import {   MdOutlineDashboardCustomize, MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { MdOutlineDashboardCustomize, MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Auth/Provider/AuthProvider";
@@ -14,6 +14,7 @@ const AdminPanel = () => {
     const navigation = useNavigate();
     const { user, logOut } = useContext(AuthContext);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
 
     // mobile View toggle
@@ -68,7 +69,7 @@ const AdminPanel = () => {
     // Update time every second
     useEffect(() => {
         const interval = setInterval(updateTime, 1000);
-        updateTime();  
+        updateTime();
 
         return () => clearInterval(interval);
     }, []);
@@ -99,12 +100,12 @@ const AdminPanel = () => {
                         </Link>
                         {/* Add Product */}
                         <Link to={"/adminPanel/addProduct"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
-                            <FcPlus className="h-6 w-6 mr-2"/>
+                            <FcPlus className="h-6 w-6 mr-2" />
                             Add Product
                         </Link>
                         {/* All Product */}
                         <Link to={"/adminPanel/allProduct"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
-                            <MdOutlineProductionQuantityLimits className="h-6 w-6 mr-2"/>
+                            <MdOutlineProductionQuantityLimits className="h-6 w-6 mr-2" />
                             All Product
                         </Link>
 
@@ -113,7 +114,13 @@ const AdminPanel = () => {
                             <HiUserGroup className="h-6 w-6 mr-2" />
                             Total Users
                         </Link>
- 
+
+                        {/* First Payment */}
+                        <Link to={"/adminPanel/firstPayment"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                            <HiUserGroup className="h-6 w-6 mr-2" />
+                            First Payment
+                        </Link>
+
                     </nav>
                 </div>
 
@@ -141,12 +148,27 @@ const AdminPanel = () => {
                         <div className="flex flex-col items-center justify-center">
                             <div className="relative inline-block text-left hover:cursor-pointer">
                                 <div className="group">
-                                    <div className="inline-flex justify-center items-center mx-auto w-14 h-14 relative border-4 border-white rounded-full overflow-hidden">
-                                        <img
-                                            className="object-cover object-center h-full w-full"
-                                            src={user?.photoURL || "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ"}
-                                            alt="No Photo"
-                                        />
+
+                                    <div
+                                        className="relative inline-block"
+                                        onMouseEnter={() => setIsHovered(true)}
+                                        onMouseLeave={() => setIsHovered(false)}
+                                    >
+                                        {/* Hover Text (Left Side) */}
+                                        {isHovered && (
+                                            <div className="absolute right-full  mr-2 mt-4 bg-black text-white text-sm px-5 py-1 rounded-lg shadow-lg">
+                                                {user?.displayName}
+                                            </div>
+                                        )}
+
+                                        {/* Profile Image */}
+                                        <div className="inline-flex justify-center items-center mx-auto w-14 h-14 relative border-4 border-white rounded-full overflow-hidden">
+                                            <img
+                                                className="object-cover object-center h-full w-full"
+                                                src={`${user?.photoURL}`}
+                                                alt="No Photo"
+                                            />
+                                        </div>
                                     </div>
 
                                     <div

@@ -8,6 +8,7 @@ import Dashboard from "../Pages/Admin/Dashboard/Dashboard";
 import AddProduct from "../Pages/Admin/AddProduct/AddProduct";
 import AllProduct from "../Pages/Admin/AllProduct/AllProduct";
 import TotalUsers from "../Pages/Admin/TotalUsers/TotalUsers";
+import FirstPayment from "../Pages/Admin/FirstPayment/FirstPayment";
 // import Dashboard from "../Pages/Admin/Dashboard";
 
 
@@ -50,6 +51,10 @@ export const router = createBrowserRouter([
         {
           path: "totalUsers",
           element: <TotalUsers></TotalUsers>
+        },
+        {
+          path: "firstPayment",
+          element: <FirstPayment></FirstPayment>
         }
       ]
     }
