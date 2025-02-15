@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../Main/Main";
 import Home from "../Pages/Home/Home";
 import SignUp from "../Pages/Authentication/SignUp/SignUp";
@@ -9,53 +9,58 @@ import AddProduct from "../Pages/Admin/AddProduct/AddProduct";
 import AllProduct from "../Pages/Admin/AllProduct/AllProduct";
 import TotalUsers from "../Pages/Admin/TotalUsers/TotalUsers";
 import FirstPayment from "../Pages/Admin/FirstPayment/FirstPayment";
+import Profile from "../Pages/Profile/Profile";
 // import Dashboard from "../Pages/Admin/Dashboard";
 
 
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        {
-            path: '/',
-            element: <Home></Home>
-        },
-        {
-          path: '/SignUp',
-          element: <SignUp></SignUp>
-        },
-        {
-          path: '/SignIn',
-          element: <SignIn></SignIn>
-        }
-      ]
-    },
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
+      {
+        path: '/SignUp',
+        element: <SignUp></SignUp>
+      },
+      {
+        path: '/SignIn',
+        element: <SignIn></SignIn>
+      },
+      {
+        path: '/profile',
+        element: <Profile />
+      }
+    ]
+  },
 
-    {
-      path: 'AdminPanel',
-      element: <AdminPanel></AdminPanel>,
-      children: [
-        {
-          path: "dashboard",
-          element: <Dashboard></Dashboard>
-        },
-        {
-          path: "addProduct",
-          element: <AddProduct></AddProduct>
-        },
-        {
-          path: "allProduct",
-          element: <AllProduct></AllProduct>
-        },
-        {
-          path: "totalUsers",
-          element: <TotalUsers></TotalUsers>
-        },
-        {
-          path: "firstPayment",
-          element: <FirstPayment></FirstPayment>
-        }
-      ]
-    }
-  ]);
+  {
+    path: 'AdminPanel',
+    element: <AdminPanel></AdminPanel>,
+    children: [
+      {
+        path: "dashboard",
+        element: <Dashboard></Dashboard>
+      },
+      {
+        path: "addProduct",
+        element: <AddProduct></AddProduct>
+      },
+      {
+        path: "allProduct",
+        element: <AllProduct></AllProduct>
+      },
+      {
+        path: "totalUsers",
+        element: <TotalUsers></TotalUsers>
+      },
+      {
+        path: "firstPayment",
+        element: <FirstPayment></FirstPayment>
+      }
+    ]
+  }
+]);
