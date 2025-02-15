@@ -9,7 +9,10 @@ import AddProduct from "../Pages/Admin/AddProduct/AddProduct";
 import AllProduct from "../Pages/Admin/AllProduct/AllProduct";
 import TotalUsers from "../Pages/Admin/TotalUsers/TotalUsers";
 import FirstPayment from "../Pages/Admin/FirstPayment/FirstPayment";
-// import Dashboard from "../Pages/Admin/Dashboard";
+import PaymentHistory from "../Pages/Admin/PaymentHistory/PaymentHistory";
+import SalaryPay from "../Pages/Admin/SalaryPay/SalaryPay";
+import AdminRoute from "./AdminRoute/AdminRoute";
+
 
 
 export const router = createBrowserRouter([
@@ -32,29 +35,39 @@ export const router = createBrowserRouter([
       ]
     },
 
+    
+
     {
       path: 'AdminPanel',
-      element: <AdminPanel></AdminPanel>,
+      element: <AdminPanel><AdminPanel></AdminPanel></AdminPanel>,
       children: [
         {
           path: "dashboard",
-          element: <Dashboard></Dashboard>
+          element:  <AdminRoute><Dashboard></Dashboard> </AdminRoute>
         },
         {
           path: "addProduct",
-          element: <AddProduct></AddProduct>
+          element: <AdminRoute><AddProduct></AddProduct></AdminRoute>
         },
         {
           path: "allProduct",
-          element: <AllProduct></AllProduct>
+          element: <AdminRoute><AllProduct></AllProduct></AdminRoute>
         },
         {
           path: "totalUsers",
-          element: <TotalUsers></TotalUsers>
+          element: <AdminRoute> <TotalUsers></TotalUsers></AdminRoute>
         },
         {
           path: "firstPayment",
-          element: <FirstPayment></FirstPayment>
+          element: <AdminRoute><FirstPayment></FirstPayment></AdminRoute>
+        },
+        {
+          path: "paymentHistory",
+          element: <AdminRoute><PaymentHistory></PaymentHistory></AdminRoute>
+        },
+        {
+          path: "salaryPay",
+          element: <AdminRoute><SalaryPay></SalaryPay></AdminRoute>
         }
       ]
     }

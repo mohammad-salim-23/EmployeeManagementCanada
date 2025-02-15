@@ -14,8 +14,7 @@ const SignIn = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = (data) => {
-
-
+        
         signIn(data.email, data.password)
             .then(() => {
                 // const user = result.user;

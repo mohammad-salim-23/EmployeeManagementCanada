@@ -1,4 +1,5 @@
 import { CgShoppingCart } from "react-icons/cg";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
@@ -23,15 +24,17 @@ const Navbar = () => {
                             </span>
                         </div>
 
-                        <button className="border border-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
-                            Login
-                        </button>
+                        <Link to={'/SignIn'}>
+                            <button className="border border-white px-4 py-1 rounded-md hover:bg-white hover:text-gray-800 transition">
+                                Login
+                            </button>
+                        </Link>
                     </div>
                 </nav>
             </div>
         </div>
         // Comment Added
-        
+
     );
 };
 

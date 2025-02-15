@@ -2,11 +2,13 @@ import { useContext, useEffect, useState } from "react";
 import { FaBarsStaggered, } from "react-icons/fa6";
 import { HiUserGroup } from "react-icons/hi";
 import { ImCancelCircle } from "react-icons/im";
-import { MdOutlineDashboardCustomize, MdOutlineProductionQuantityLimits } from "react-icons/md";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { MdOutlineDashboardCustomize, MdOutlineProductionQuantityLimits, MdPayments } from "react-icons/md";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Auth/Provider/AuthProvider";
 import { FcPlus } from "react-icons/fc";
+import { FaHistory } from "react-icons/fa";
+import { SiBitcoincash } from "react-icons/si";
 
 
 const AdminPanel = () => {
@@ -15,6 +17,9 @@ const AdminPanel = () => {
     const { user, logOut } = useContext(AuthContext);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+
+
+    //  <Navigate to="/signin" state={{ from: location }} replace />
 
 
     // mobile View toggle
@@ -85,41 +90,53 @@ const AdminPanel = () => {
             >
                 {/* Logo  */}
                 <div className="flex items-center justify-center h-20 bg-pink-700">
-                    <Link to={"/"}>
+                    <NavLink to={"/"}>
                         <span className="text-white font-bold uppercase p-4 ">Employee Management</span>
-                    </Link>
+                    </NavLink>
                 </div>
 
                 <div className="flex flex-col flex-1 overflow-y-auto">
 
                     <nav className="flex-1 px-2 py-4 bg-[#8C60EB]">
                         {/* Dashboard */}
-                        <Link to={"/adminPanel/dashboard"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                        <NavLink to={"/adminPanel/dashboard"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
                             <MdOutlineDashboardCustomize className="h-6 w-6 mr-2" />
                             Dashboard
-                        </Link>
+                        </NavLink>
                         {/* Add Product */}
-                        <Link to={"/adminPanel/addProduct"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                        <NavLink to={"/adminPanel/addProduct"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
                             <FcPlus className="h-6 w-6 mr-2" />
                             Add Product
-                        </Link>
+                        </NavLink>
                         {/* All Product */}
-                        <Link to={"/adminPanel/allProduct"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                        <NavLink to={"/adminPanel/allProduct"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
                             <MdOutlineProductionQuantityLimits className="h-6 w-6 mr-2" />
                             All Product
-                        </Link>
+                        </NavLink>
 
                         {/* Total Users */}
-                        <Link to={"/adminPanel/totalUsers"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                        <NavLink to={"/adminPanel/totalUsers"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
                             <HiUserGroup className="h-6 w-6 mr-2" />
                             Total Users
-                        </Link>
+                        </NavLink>
+
+                        {/* PaymentHistory */}
+                        <NavLink to={"/adminPanel/salaryPay"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                            <SiBitcoincash className="h-6 w-6 mr-2"  />
+                            Salary Pay
+                        </NavLink>
+
+                        {/* PaymentHistory */}
+                        <NavLink to={"/adminPanel/paymentHistory"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                            <FaHistory className="h-6 w-6 mr-2" />
+                            Payment History
+                        </NavLink>
 
                         {/* First Payment */}
-                        <Link to={"/adminPanel/firstPayment"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
-                            <HiUserGroup className="h-6 w-6 mr-2" />
+                        <NavLink to={"/adminPanel/firstPayment"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
+                            <MdPayments className="h-6 w-6 mr-2" />
                             First Payment
-                        </Link>
+                        </NavLink>
 
                     </nav>
                 </div>
