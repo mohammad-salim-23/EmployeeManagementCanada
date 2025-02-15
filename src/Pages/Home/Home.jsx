@@ -1,15 +1,14 @@
 import Banner from "./Banner/Banner";
 import Faq from "./Faq/Faq";
+import ProductCard from "./ProductCard/ProductCard";
 
 
 const Home = () => {
     return (
         <div>
 
-            {/* Banner */}
             <Banner></Banner>
-
-            {/* Faq */}
+            <ProductCard />
             <Faq></Faq>
         </div>
     );

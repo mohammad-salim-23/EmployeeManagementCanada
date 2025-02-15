@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link,  useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialComponent from "../SocialComponent/SocialComponent";
 import { useContext } from "react";
 import { AuthContext } from "../../../Auth/Provider/AuthProvider";
@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const SignIn = () => {
 
     const navigate = useNavigate();
- 
+
     const { signIn } = useContext(AuthContext);
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();

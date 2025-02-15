@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Main from "../Main/Main";
 import Home from "../Pages/Home/Home";
 import SignUp from "../Pages/Authentication/SignUp/SignUp";
@@ -13,27 +13,33 @@ import PaymentHistory from "../Pages/Admin/PaymentHistory/PaymentHistory";
 import SalaryPay from "../Pages/Admin/SalaryPay/SalaryPay";
 import AdminRoute from "./AdminRoute/AdminRoute";
 
+import Profile from "../Pages/Profile/Profile";
+// import Dashboard from "../Pages/Admin/Dashboard";
 
 
 export const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      children: [
-        {
-            path: '/',
-            element: <Home></Home>
-        },
-        {
-          path: '/SignUp',
-          element: <SignUp></SignUp>
-        },
-        {
-          path: '/SignIn',
-          element: <SignIn></SignIn>
-        }
-      ]
-    },
+  {
+    path: "/",
+    element: <Main></Main>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
+      {
+        path: '/SignUp',
+        element: <SignUp></SignUp>
+      },
+      {
+        path: '/SignIn',
+        element: <SignIn></SignIn>
+      },
+      {
+        path: '/profile',
+        element: <Profile />
+      }
+    ]
+  },
 
     
 
