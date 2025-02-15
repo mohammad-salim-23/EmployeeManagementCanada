@@ -6,16 +6,15 @@ import { useState } from "react";
 
 const TotalUsers = () => {
 
-    const [allUsers, refetch] = useAllUsers();
+    const [allUsers, refetch, isLoading] = useAllUsers();
     const axiosSecure = useAxiosPublic();
-
-    // console.log(allUsers)
+ 
 
     // {/* Make Admin/Employee/Reseller/Customer */}
     const handleTypeChange = (user, newType) => {
         const userDetails = {
             ...user,
-            status: newType,
+            role: newType,
         };
         axiosSecure.patch(`/users/${user._id}`, userDetails)
             .then((res) => {
@@ -115,12 +114,30 @@ const TotalUsers = () => {
     };
 
 
+    //  Loading
+    if (isLoading) {
+        return (
+            <div className="flex items-center justify-center my-10">
+                <div className="relative">
+                    <div className="h-24 w-24 rounded-full border-t-8 border-b-8 border-gray-200"></div>
+                    <div className="absolute top-0 left-0 h-24 w-24 rounded-full border-t-8 border-b-8 border-blue-500 animate-spin">
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+
+
 
 
     return (
         <div>
 
-            <h1 className="text-center text-5xl font-semibold my-6">Total Users {allUsers.length}</h1>
+            <div className="text-center">
+                <h1 className="text-3xl font-semibold my-6">Total Users: {allUsers.length}</h1>
+            </div>
+
 
             <div className="overflow-x-auto mx-auto container">
                 <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
@@ -142,13 +159,13 @@ const TotalUsers = () => {
                                 <select
                                     value={user.type}
                                     onChange={(e) => handleTypeChange(user, e.target.value)}
-                                    defaultValue={user.status}
+                                    defaultValue={user.role}
                                     className="border py-2 my-1 cursor-pointer"
                                 >
                                     <option className="cursor-pointer" value="customer">Customer</option>
                                     <option className="cursor-pointer" value="reseller">Reseller</option>
                                     <option className="cursor-pointer" value="employee">Employee</option>
-                                    <option className="cursor-pointer" value="admin ">Admin </option>
+                                    <option className="cursor-pointer" value="admin">Admin </option>
                                 </select>
 
                                 <td>
@@ -193,7 +210,7 @@ const TotalUsers = () => {
                 </button>
             </div>
 
-             {/* Pagination End*/}
+            {/* Pagination End*/}
         </div >
     );
 };
