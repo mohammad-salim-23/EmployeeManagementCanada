@@ -3,10 +3,12 @@ import { CgShoppingCart } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Auth/Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useCart from "../../hooks/useCart";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const { user, logOut } = useContext(AuthContext);
+    const [cart] = useCart()
 
     const handleLogOut = () => {
         logOut();
@@ -39,9 +41,11 @@ const Navbar = () => {
 
                     <div className="flex items-center space-x-4">
                         <div className="relative">
-                            <CgShoppingCart className="w-6 h-6" />
+                            <Link to={'/cart'}>
+                                <CgShoppingCart className="w-6 h-6" />
+                            </Link>
                             <span className="absolute -top-2 -right-2 bg-green-500 text-xs text-white rounded-full px-1">
-                                0
+                                {cart.length}
                             </span>
                         </div>
 
