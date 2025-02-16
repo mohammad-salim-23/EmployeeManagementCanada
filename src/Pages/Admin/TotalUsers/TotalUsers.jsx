@@ -8,7 +8,7 @@ const TotalUsers = () => {
 
     const [allUsers, refetch, isLoading] = useAllUsers();
     const axiosSecure = useAxiosPublic();
- 
+
 
     // {/* Make Admin/Employee/Reseller/Customer */}
     const handleTypeChange = (user, newType) => {

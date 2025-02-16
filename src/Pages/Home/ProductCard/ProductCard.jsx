@@ -1,28 +1,62 @@
-// import useAxiosPublic from "../../../Component/hooks/useAxiosPublic";
 import { useContext } from "react";
 import useAxiosSecure from "../../../Component/hooks/useAxiosSecure";
-import useGetProduct from "../../../Component/hooks/useGetProduct"
+import useGetProduct from "../../../Component/hooks/useGetProduct";
 import { AuthContext } from "../../../Auth/Provider/AuthProvider";
 import useAllUsers from "../../../Component/hooks/useAllUsers";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = () => {
     const axiosSecure = useAxiosSecure();
     const [products] = useGetProduct();
-    const { user } = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
     const [users] = useAllUsers();
-    const customers = users?.filter(user => user.role === 'customer');
-    const reSeller = users?.filter(user => user.role === 'customer');
+    const navigate = useNavigate()
+    const currentUser = user?.email;
+
+    // Find if current user is a reseller
+    const isReseller = users?.some(user => user.role === 'reseller' && user.email === currentUser);
+
     const handleAddToCart = async (info) => {
         const productInfo = {
             productName: info?.productName,
             email: user?.email,
+            productPrice: isReseller ? info?.resellerPrice : info?.customerPrice,
+            date: new Date(),
+            // userName: user.displayName,
+            productId: info?._id,
+            productImage: info?.image,
+        };
+        try {
+            if (!user) {
 
-            user: 'arif'
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "You are not logged in. Please login first",
+                    footer: '<a href="/SignIn">Login</a>'
+                });
+                navigate('/SignIn')
+            } else {
+                const response = await axiosSecure.post('/cart', productInfo);
+                console.log(response.data)
+                if (response?.data?.success === true) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            }
+
+        } catch {
+            console.log('something went wrong')
         }
-        const response = await axiosSecure.post('/cart', productInfo)
-        console.log(response.data)
 
-    }
+    };
+
     return (
         <div className="flex flex-wrap gap-6 justify-center">
             {products.map((item) => (
@@ -42,8 +76,24 @@ const ProductCard = () => {
                         <h2 className="text-lg font-semibold text-gray-800">{item?.productName}</h2>
                         <p className="text-gray-600 text-sm">Quantity: <span className="font-medium">{item?.quantity}</span></p>
                         <div className="flex justify-between items-center mt-3">
-                            <span className="text-xl font-bold text-violet-600">${item?.customerPrice}</span>
-                            <button onClick={() => handleAddToCart(item)} className="px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition duration-300">
+                            {
+                                isReseller ? <>
+                                    <span className="text-xl font-bold text-violet-600">
+                                        ${item?.resellerPrice}
+                                    </span>
+                                </>
+                                    :
+                                    <>
+                                        <span className="text-xl font-bold text-violet-600">
+                                            ${item?.customerPrice}
+                                        </span>
+                                    </>
+                            }
+
+                            <button
+                                onClick={() => handleAddToCart(item)}
+                                className="px-4 py-2 bg-violet-600 text-white text-sm font-semibold rounded-lg hover:bg-violet-700 transition duration-300"
+                            >
                                 Add to Cart
                             </button>
                         </div>
@@ -51,7 +101,7 @@ const ProductCard = () => {
                 </div>
             ))}
         </div>
-    )
-}
+    );
+};
 
-export default ProductCard
+export default ProductCard;
