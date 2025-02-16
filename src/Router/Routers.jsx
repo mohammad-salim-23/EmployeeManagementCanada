@@ -14,6 +14,7 @@ import SalaryPay from "../Pages/Admin/SalaryPay/SalaryPay";
 import AdminRoute from "./AdminRoute/AdminRoute";
 
 import Profile from "../Pages/Profile/Profile";
+import Cart from "../Pages/Cart/Cart";
 // import Dashboard from "../Pages/Admin/Dashboard";
 
 
@@ -37,44 +38,48 @@ export const router = createBrowserRouter([
       {
         path: '/profile',
         element: <Profile />
+      },
+      {
+        path: '/cart',
+        element: <Cart />
       }
     ]
   },
 
-    
 
-    {
-      path: 'AdminPanel',
-      element: <AdminPanel><AdminPanel></AdminPanel></AdminPanel>,
-      children: [
-        {
-          path: "dashboard",
-          element:  <AdminRoute><Dashboard></Dashboard> </AdminRoute>
-        },
-        {
-          path: "addProduct",
-          element: <AdminRoute><AddProduct></AddProduct></AdminRoute>
-        },
-        {
-          path: "allProduct",
-          element: <AdminRoute><AllProduct></AllProduct></AdminRoute>
-        },
-        {
-          path: "totalUsers",
-          element: <AdminRoute> <TotalUsers></TotalUsers></AdminRoute>
-        },
-        {
-          path: "firstPayment",
-          element: <AdminRoute><FirstPayment></FirstPayment></AdminRoute>
-        },
-        {
-          path: "paymentHistory",
-          element: <AdminRoute><PaymentHistory></PaymentHistory></AdminRoute>
-        },
-        {
-          path: "salaryPay",
-          element: <AdminRoute><SalaryPay></SalaryPay></AdminRoute>
-        }
-      ]
-    }
-  ]);
+
+  {
+    path: 'AdminPanel',
+    element: <AdminPanel><AdminPanel></AdminPanel></AdminPanel>,
+    children: [
+      {
+        path: "dashboard",
+        element: <AdminRoute><Dashboard></Dashboard> </AdminRoute>
+      },
+      {
+        path: "addProduct",
+        element: <AdminRoute><AddProduct></AddProduct></AdminRoute>
+      },
+      {
+        path: "allProduct",
+        element: <AdminRoute><AllProduct></AllProduct></AdminRoute>
+      },
+      {
+        path: "totalUsers",
+        element: <AdminRoute> <TotalUsers></TotalUsers></AdminRoute>
+      },
+      {
+        path: "firstPayment",
+        element: <AdminRoute><FirstPayment></FirstPayment></AdminRoute>
+      },
+      {
+        path: "paymentHistory",
+        element: <AdminRoute><PaymentHistory></PaymentHistory></AdminRoute>
+      },
+      {
+        path: "salaryPay",
+        element: <AdminRoute><SalaryPay></SalaryPay></AdminRoute>
+      }
+    ]
+  }
+]);
