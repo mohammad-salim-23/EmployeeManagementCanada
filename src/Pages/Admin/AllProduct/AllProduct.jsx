@@ -47,57 +47,65 @@ const AllProduct = () => {
   };
 
   return (
-    <div className="px-4 py-6">
-      <h2 className="text-2xl md:text-3xl text-center my-4">All Products</h2>
+    <div className="px-4 py-8">
+      <h2 className="text-3xl md:text-4xl font-semibold text-center my-6 text-gray-800">All Products</h2>
       <div className="overflow-x-auto w-full">
-        <table className="table table-zebra w-full text-xs md:text-sm">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Image</th>
-              <th>BuyingPrice</th>
-              <th>ResellerPrice</th>
-              <th>CustomerPrice</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayedProducts.map((product, index) => (
-              <tr key={product._id}>
-                <td>{index + 1}</td>
-                <td className="whitespace-nowrap">{product.productName}</td>
-                <td>
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-10 h-10 md:w-16 md:h-16 rounded object-cover"
-                  />
-                </td>
-                <td>${product.buyingPrice}</td>
-                <td>${product.resellerPrice}</td>
-                <td>${product.customerPrice}</td>
-                <td>
-                  <button onClick={() => handleUpdate(product)} className="btn btn-xs md:btn-sm btn-info">
-                    <FaEdit />
-                  </button>
-                </td>
-                <td>
-                  <button onClick={() => handleDelete(product)} className="btn btn-xs md:btn-sm btn-danger">
-                    <FaTrash />
-                  </button>
-                </td>
+        <div className="bg-white/50 backdrop-blur-md rounded-lg shadow-lg overflow-hidden">
+          <table className="table-auto w-full text-sm md:text-base">
+            <thead className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+              <tr>
+                <th className="py-3 px-4 text-center">Image</th>
+                <th className="py-3 px-4 text-left">Name</th>
+                <th className="py-3 px-4 text-center">Buying Price</th>
+                <th className="py-3 px-4 text-center">Reseller Price</th>
+                <th className="py-3 px-4 text-center">Customer Price</th>
+                <th className="py-3 px-4 text-center">Update</th>
+                <th className="py-3 px-4 text-center">Delete</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white text-gray-800">
+              {displayedProducts.map((product) => (
+                <tr key={product._id} className="border-b hover:bg-gray-100 transition">
+                  <td className="py-3 px-4 text-center">
+                    <img
+                      src={product.image}
+                      alt={product.productName}
+                      className="w-12 h-12 md:w-16 md:h-16 rounded-lg shadow-md object-cover"
+                    />
+                  </td>
+                  <td className="py-3 px-4">{product.productName}</td>
+                  <td className="py-3 px-4 text-center text-blue-600 font-semibold">${product.buyingPrice}</td>
+                  <td className="py-3 px-4 text-center text-green-600 font-semibold">${product.resellerPrice}</td>
+                  <td className="py-3 px-4 text-center text-red-600 font-semibold">${product.customerPrice}</td>
+                  <td className="py-3 px-4 text-center">
+                    <button
+                      onClick={() => handleUpdate(product)}
+                      className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white shadow-md"
+                    >
+                      <FaEdit />
+                    </button>
+                  </td>
+                  <td className="py-3 px-4 text-center">
+                    <button
+                      onClick={() => handleDelete(product)}
+                      className="p-2 rounded-md bg-red-500 hover:bg-red-600 transition text-white shadow-md"
+                    >
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-      <div className="flex justify-center mt-4">
+
+      {/* Pagination */}
+      <div className="flex justify-center mt-6 space-x-2">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="btn btn-xs md:btn-sm btn-outline mx-1"
+          className="px-3 py-2 rounded-md text-white bg-gray-400 hover:bg-gray-500 transition disabled:opacity-50"
         >
           Previous
         </button>
@@ -105,7 +113,8 @@ const AllProduct = () => {
           <button
             key={index}
             onClick={() => handlePageChange(index + 1)}
-            className={`btn btn-xs md:btn-sm mx-1 ${currentPage === index + 1 ? "btn-active" : ""}`}
+            className={`px-3 py-2 rounded-md text-white ${currentPage === index + 1 ? "bg-purple-600 hover:bg-purple-700" : "bg-gray-500 hover:bg-gray-600"
+              } transition`}
           >
             {index + 1}
           </button>
@@ -113,12 +122,13 @@ const AllProduct = () => {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="btn btn-xs md:btn-sm btn-outline mx-1"
+          className="px-3 py-2 rounded-md text-white bg-gray-400 hover:bg-gray-500 transition disabled:opacity-50"
         >
           Next
         </button>
       </div>
     </div>
+
   );
 };
 
