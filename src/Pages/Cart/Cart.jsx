@@ -4,6 +4,7 @@ import { RxCross1 } from "react-icons/rx";
 import useAxiosSecure from "../../Component/hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import Empty from "../Empty/Empty";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
     const [cart, refetch] = useCart();
@@ -14,7 +15,7 @@ const Cart = () => {
     }, 0);
 
 
-    const shipping = 120;
+    const shipping = 0;
     const subTotal = totalPrice + shipping;
 
 
@@ -80,13 +81,15 @@ const Cart = () => {
                             <span className="text-xl flex items-center font-bold text-gray-900"><TbCurrencyTaka />{subTotal.toFixed(2)}</span>
                         </div>
 
-                        <button
-                            // onClick={handleCheckout}
-                            className="w-full bg-gray-800 text-white font-semibold py-3 rounded-lg hover:bg-gray-900 transition-colors duration-300"
-                            disabled={cart.length === 0}
-                        >
-                            Proceed to Checkout
-                        </button>
+                        <Link to={"/stripe/payment"}>
+                            <button
+                                // onClick={handleCheckout}
+                                className="w-full bg-gray-800 text-white font-semibold py-3 rounded-lg hover:bg-gray-900 transition-colors duration-300"
+                                disabled={cart.length === 0}
+                            >
+                                Proceed to Checkout
+                            </button>
+                        </Link>
                     </div>
                 </div>
 

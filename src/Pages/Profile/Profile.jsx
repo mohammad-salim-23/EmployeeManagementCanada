@@ -2,7 +2,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import useRoleCheckAPI from '../../Component/hooks/useRoleCheckAPI';
 import PurchaseHistory from './PurchaseHistory/PurchaseHistory';
-import PaymentHistory from './PaymentHistory/PaymentHistory';
 import MyProfile from './MyProfile/MyProfile';
 import SalaryConfirm from './SalaryConfirm/SalaryConfirm';
 
@@ -22,16 +21,14 @@ const Profile = () => {
                 <TabList>
                     {
                         isEmployee ? <>
-                            <Tab><h1 className='text-xl font-bold'>Salary Confirm</h1></Tab>
+                            <Tab><h1 className='text-xl font-bold'>Salary Check</h1></Tab>
                         </> : <></>
                     }
 
                     {/* purchase history  */}
                     <Tab><h1 className='text-xl font-bold'>Purchase History</h1></Tab>
 
-                    {/* Payment History */}
-                    <Tab><h1 className='text-xl font-bold'>Payment History</h1></Tab>
-
+ 
                     {/* My Profile */}
                     <Tab><h1 className='text-xl font-bold'>My Profile</h1></Tab>
                 </TabList>
@@ -51,11 +48,7 @@ const Profile = () => {
                     <PurchaseHistory></PurchaseHistory>
                 </TabPanel>
 
-                {/* Payment History */}
-                <TabPanel>
-                    <PaymentHistory></PaymentHistory>
-                </TabPanel>
-
+ 
                 {/* My Profile */}
                 <TabPanel>
                     <MyProfile></MyProfile>
