@@ -129,13 +129,13 @@ const AdminPanel = () => {
                         {/* PaymentHistory */}
                         <NavLink to={"/adminPanel/paymentHistory"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
                             <FaHistory className="h-6 w-6 mr-2" />
-                            Payment History
+                            Salary History
                         </NavLink>
 
                         {/* First Payment */}
                         <NavLink to={"/adminPanel/firstPayment"} className="flex items-center px-4 py-4 space-y-4 rounded-lg text-gray-100 hover:bg-blue-800">
                             <MdPayments className="h-6 w-6 mr-2" />
-                            First Payment
+                            First Salary
                         </NavLink>
 
                     </nav>
