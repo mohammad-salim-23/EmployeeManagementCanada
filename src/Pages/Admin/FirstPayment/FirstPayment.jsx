@@ -14,7 +14,7 @@ const FirstPayment = () => {
         // Creating the first payment object with additional fields
         const firstPaymentInfo = {
             ...data,
-            lastSalaryPaid: new Date(),
+            // lastSalaryPaid: new Date(),
             status: "Not Paid",
         };
 

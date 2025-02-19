@@ -9,18 +9,23 @@ const SalaryPay = () => {
     const [paymentHistory, isLoading, refetch] = useAllPaymentHistory();
     const [isOpen, setIsOpen] = useState(false);  // State to track which employee is selected for payment
     const axiosPublic = useAxiosPublic();  // Axios hook for making API requests
+    const [loading, setLoading] = useState(false); // Loading state
 
     // Using react-hook-form to manage form state
     const { register, handleSubmit, reset } = useForm();
 
     // onSubmit function for handling the form submission
     const onSubmit = async (data) => {
+        setLoading(true); // Start loading
+
         try {
             // Send API request to update salary
             const result = await axiosPublic.patch('/api/v1/salaryPay/update-salary', {
                 email: data.employeeEmail,
-                newSalary: data.employeeSalary
+                newSalary: data.employeeSalary,
             });
+
+            console.log(result)
 
             if (result.data.message === 200) {
                 // Show SweetAlert success modal after the update is successful
@@ -30,7 +35,12 @@ const SalaryPay = () => {
                     title: "Payment Successfully Completed",
                     showConfirmButton: false,
                     timer: 1500
+                })
+                .then(() => {
+                    window.location.reload(); // Refresh the page after the alert
                 });
+                setLoading(false); // Stop loading
+                refetch()
             } else {
                 // Show error modal if update fails
                 Swal.fire({
@@ -98,6 +108,22 @@ const SalaryPay = () => {
         return pageNumbers;
     };
 
+    // Pay Button Disable or Enable
+    const isButtonDisabled = (lastSalaryPaid) => {
+        const lastPaidDate = new Date(lastSalaryPaid);
+        const nextEligibleDate = new Date(lastPaidDate);
+        nextEligibleDate.setDate(nextEligibleDate.getDate() + 7); // ৭ দিন যোগ করা
+        const currentDate = new Date();
+
+        const timeDiff = nextEligibleDate - currentDate;
+        const remainingDays = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // দিন হিসাব করা
+
+        return {
+            disabled: remainingDays > 0, // যদি ৭ দিন শেষ না হয়, তাহলে disabled
+            remainingDays: remainingDays > 0 ? remainingDays : 0, // ০ দিন হলে enable হবে
+        };
+    };
+
     // Display loading spinner while fetching data
     if (isLoading) {
         return (
@@ -114,7 +140,7 @@ const SalaryPay = () => {
         <div className="overflow-x-auto mx-auto container">
             {/* Page Title */}
             <div className="text-center">
-                <h1 className="text-3xl font-semibold my-6 text-blue-700">Employ Payment: {paymentHistory.length}</h1>
+                <h1 className="text-3xl font-semibold my-6 text-blue-700">Employ Salary: {paymentHistory.length}</h1>
             </div>
 
             {/* Payment History Table */}
@@ -135,7 +161,19 @@ const SalaryPay = () => {
                             <td className="whitespace-nowrap px-4 py-4 text-gray-700">{history.employeeEmail}</td>
                             <td className="whitespace-nowrap px-4 py-4 text-gray-700">{history.employeeSalary}</td>
                             <td className="whitespace-nowrap px-4 py-4 text-gray-700">{history.lastSalaryPaid}</td>
-                            <td onClick={() => setIsOpen(history)} className="whitespace-nowrap px-4 py-4 text-xl text-center rounded-2xl p-4 cursor-pointer bg-blue-400 hover:bg-blue-300 text-white font-semibold ">Pay Now</td>
+                            {/* <td onClick={() => setIsOpen(history)} className="whitespace-nowrap px-4 py-4 text-xl text-center rounded-2xl p-4 cursor-pointer bg-blue-400 hover:bg-blue-300 text-white font-semibold ">Pay Now</td> */}
+                            <button
+                                disabled={isButtonDisabled(history.lastSalaryPaid).disabled}
+                                onClick={() => setIsOpen(history)}
+                                className={`px-4 py-2 rounded ${isButtonDisabled(history.lastSalaryPaid).disabled
+                                    ? "whitespace-nowrap px-4 py-4 text-xl text-center rounded-2xl p-4 cursor-not-allowed bg-gray-400 hover:bg-blue-300 text-white font-semibold"
+                                    : "whitespace-nowrap px-4 py-4 text-xl text-center rounded-2xl p-4 cursor-pointer bg-green-500 hover:bg-green-400 text-white font-semibold"
+                                    } text-white`}
+                            >
+                                {isButtonDisabled(history.lastSalaryPaid).disabled
+                                    ? `Wait ${isButtonDisabled(history.lastSalaryPaid).remainingDays} days`
+                                    : "Pay Salary"}
+                            </button>
                         </tr>
                     ))}
                 </tbody>
@@ -196,8 +234,24 @@ const SalaryPay = () => {
                             </div>
 
                             {/* Submit button */}
-                            <div className="text-center ">
+                            {/* <div className="text-center ">
                                 <button type="submit" className="border bg-purple-400 py-3 px-6 rounded-2xl text-white font-semibold text-xl hover:bg-purple-300 ">Pay</button>
+                            </div> */}
+                            <div className="flex justify-center mt-4">
+                                <button
+                                    className={`py-3 px-6 rounded-lg font-medium bg-[#005397] text-white border border-[#005397] `}
+                                    disabled={loading} // Disable button while loading
+                                >
+                                    {loading ? (
+                                        <img
+                                            className="w-10 h-10 animate-spin border border-[#005397]"
+                                            src="https://www.svgrepo.com/show/474682/loading.svg"
+                                            alt="Loading icon"
+                                        />
+                                    ) : (
+                                        "Pay Salary"
+                                    )}
+                                </button>
                             </div>
 
                         </form>

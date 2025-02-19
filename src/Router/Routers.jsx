@@ -15,6 +15,7 @@ import AdminRoute from "./AdminRoute/AdminRoute";
 
 import Profile from "../Pages/Profile/Profile";
 import Cart from "../Pages/Cart/Cart";
+import Payment from "../Component/Payment/Payment";
 // import Dashboard from "../Pages/Admin/Dashboard";
 
 
@@ -43,6 +44,11 @@ export const router = createBrowserRouter([
         path: '/cart',
         element: <Cart />
       },
+      {
+        path: '/stripe/payment',
+        element: <Payment></Payment>
+      },
+
     ]
   },
 
@@ -81,5 +87,7 @@ export const router = createBrowserRouter([
         element: <AdminRoute><SalaryPay></SalaryPay></AdminRoute>
       }
     ]
-  }
+  },
+
+
 ]);
