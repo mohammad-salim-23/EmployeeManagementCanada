@@ -61,7 +61,7 @@ const PaymentHistory = () => {
         <div className="overflow-x-auto mx-auto container">
             {/* Page Title */}
             <div className="text-center">
-                <h1 className="text-3xl font-semibold my-6">Total Payment History: {paymentHistory.length}</h1>
+                <h1 className="text-3xl font-semibold my-6">Total Salary History: {paymentHistory.length}</h1>
             </div>
 
             {/* Payment History Table */}
@@ -82,7 +82,18 @@ const PaymentHistory = () => {
                             <td className="whitespace-nowrap px-4 py-4 text-gray-700">{history.employeeEmail}</td>
                             <td className="whitespace-nowrap px-4 py-4 text-gray-700">{history.employeeSalary}</td>
                             <td className="whitespace-nowrap px-4 py-4 text-gray-700">{history.lastSalaryPaid}</td>
-                            <td className="whitespace-nowrap px-4 py-4 text-gray-700">{history.status}</td>
+                            <td
+                            className={`px - 4 py-4 text-xl text-center rounded-xl border font-semibold ${history.status === "Not Paid"
+                                ? "text-red-600 "
+                                : history.status === "Pending"
+                                    ? "text-blue-500 "
+                                    : history.status === "Paid"
+                                        ? "text-green-500   "
+                                        : "text-black "
+                                }`}
+                        >
+                            {history.status}
+                        </td>
                         </tr>
                     ))}
                 </tbody>
